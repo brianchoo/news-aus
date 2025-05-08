@@ -118,11 +118,9 @@ const fetchAndHandleNewsData = async () => {
       console.warn("News data is valid but contains no articles.");
       displayError("No articles found.");
     } else {
-      // Handle invalid data structure - throwing an error here goes to the catch block.
       throw new Error("JSON data is not in the expected format.");
     }
   } catch (error) {
-    // This block catches any errors thrown in the try block (fetch error, json parsing error, custom errors).
     console.error("Error: Loading JSON", error);
     displayError("Unable to load news");
   }
