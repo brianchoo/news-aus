@@ -102,31 +102,30 @@ const renderArticles = (articles) => {
   });
 };
 
-const fetchAndHandleNewsData = () => {
-  fetch("data/code-test.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `HTTP error ${response.status}: ${response.statusText}`
-        );
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (data && data.articles.length > 0) {
-        renderArticles(data.articles);
-      } else if (data && data.articles.length === 0) {
-        console.warn("News data is valid but contains no articles.");
-        displayError("No articles found.");
-      } else {
-        // Handle invalid data structure
-        throw new Error("JSON data is not in the expected format.");
-      }
-    })
-    .catch((error) => {
-      console.error("Error: Loading JSON", error);
-      displayError("Unable to load news");
-    });
+const fetchAndHandleNewsData = async () => {
+  try {
+    const response = await fetch("data/code-test.json");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (data && data.articles.length > 0) {
+      renderArticles(data.articles);
+    } else if (data && data.articles.length === 0) {
+      console.warn("News data is valid but contains no articles.");
+      displayError("No articles found.");
+    } else {
+      // Handle invalid data structure - throwing an error here goes to the catch block.
+      throw new Error("JSON data is not in the expected format.");
+    }
+  } catch (error) {
+    // This block catches any errors thrown in the try block (fetch error, json parsing error, custom errors).
+    console.error("Error: Loading JSON", error);
+    displayError("Unable to load news");
+  }
 };
 
 const init = () => {
