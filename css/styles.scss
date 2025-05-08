@@ -76,6 +76,7 @@
 
     .article-title {
       font-size: $title-font-size;
+      margin-top: 6px;
     }
 
     .article-standfirst {
@@ -127,6 +128,8 @@
     grid-gap: $grid-gap-mobile;
   }
   .article:first-child {
+    padding-bottom: 8px;
+
     .article-image {
       height: 100%;
     }

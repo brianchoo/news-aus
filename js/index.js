@@ -69,7 +69,7 @@ const buildArticleElement = (article, index) => {
 
   articleElement.setAttribute(
     "data-category",
-    article.primarySectionRouteName || ""
+    article?.primarySectionRouteName || ""
   );
 
   if (index % NUMBER_OF_ARTICLES !== 0) {
